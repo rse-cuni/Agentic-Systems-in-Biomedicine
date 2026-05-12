@@ -1,41 +1,8 @@
-# Lab Values Interpreter Agent
+# Lab Values Interpreter Agent Flow Prompt
 
-A Langflow agent for **medical education** that accepts raw laboratory results and returns a structured, clearly formatted interpretation — including reference ranges, abnormality flags, possible clinical patterns, and suggested next diagnostic steps.
+## System Prompt Template
 
-> **Disclaimer:** All output is for educational purposes only and must not be used for clinical decision-making.
-
----
-
-## Pipeline overview
-
-![Pipeline](images/image.png)
-
-The flow contains four components wired together:
-
-| Component | Role |
-| --------- | ---- |
-| **Chat Input** | Receives the raw lab results typed by the user |
-| **Prompt Template** | Injects the system prompt (reference ranges + instructions) |
-| **Custom OpenAI Model** | Configures the underlying LLM (model name, API key, temperature) |
-| **Language Model** | Combines the user message and system prompt, calls the model |
-| **Chat Output** | Displays the formatted Markdown interpretation |
-
----
-
-## What the agent does
-
-1. Parses all numeric values from free-text input (e.g. "Hb 95 g/L, MCV 72 fL").
-2. Compares each value against built-in adult reference ranges (CBC, biochemistry, lipids, coagulation, thyroid).
-3. Flags results as **normal / low / high / critical** with emoji indicators (✓ 🔻 🔺 ⚠️).
-4. Groups abnormalities into likely **clinical patterns** (e.g. iron-deficiency anaemia, AKI, hepatocellular injury).
-5. Suggests **2–4 specific next diagnostic steps**.
-6. Returns everything as a clean Markdown table + narrative, always ending with the educational disclaimer.
-
----
-
-## System prompt (Prompt Template contents)
-
-```text
+~~~text
 You are a clinical laboratory interpretation assistant designed for medical
 education. You receive raw laboratory results and produce structured
 interpretations.
@@ -146,67 +113,4 @@ is the diagnosis; the priority is identifying the source of blood loss.
 
 Use 🔻 for low, 🔺 for high, ⚠️ for critical, ✓ for normal.
 Use bold for diagnoses, italics for the disclaimer.
-```
-
----
-
-## Example prompts to try
-
-Copy and paste any of these into the chat to see the agent in action.
-
-### Iron-deficiency anaemia
-
-```text
-55-year-old male, presenting with fatigue.
-Hb 95 g/L, MCV 72 fL, WBC 6.2 x10^9/L, Platelets 280 x10^9/L,
-Ferritin 8 ug/L, Creatinine 88 umol/L, ALT 22 U/L, CRP 3 mg/L.
-```
-
-### Diabetic ketoacidosis (DKA)
-
-```text
-22-year-old female. Glucose 28 mmol/L, Na 132, K 5.8, HCO3 12,
-ketones positive, pH 7.18, HbA1c 95 mmol/mol.
-```
-
-### Alcoholic liver disease
-
-```text
-45M, alcohol use. ALT 180, AST 240, GGT 410, bilirubin 35 umol/L,
-INR 1.4, albumin 32 g/L, platelets 110.
-```
-
-### B12/folate deficiency — megaloblastic anaemia
-
-```text
-70-year-old, weak. Hb 88, MCV 105, WBC 3.2, platelets 90,
-B12 80 pmol/L, folate 4 nmol/L.
-```
-
----
-
-## Example files
-
-The folder now includes anonymized PDF examples for testing the agent with uploaded reports or with an added `Read File` component:
-
-- `examples/patient_1_report.pdf` — iron-deficiency anaemia
-- `examples/patient_2_report.pdf` — diabetic ketoacidosis
-- `examples/patient_3_report.pdf` — alcoholic liver disease
-- `examples/patient_4_report.pdf` — B12/folate deficiency with megaloblastic anaemia
-
-The sample files intentionally contain only the measured values and basic report metadata:
-
-- no reference ranges
-- no abnormality flags
-- no interpretive comments
-
-If you extend the flow with a `Read File` component, these PDFs are good first test inputs.
-
-### Troubleshooting
-
-| Problem | What to check |
-| ------- | ------------- |
-| "Invalid API key" error | Re-paste your OpenAI API key in the Custom OpenAI Model component |
-| No response / timeout | Check your internet connection; try a smaller set of lab values |
-| Flow won't import | Make sure you are selecting the `.json` file, not a folder |
-| Blank output | Click the Chat Output component and confirm it is connected to the Language Model |
+~~~
