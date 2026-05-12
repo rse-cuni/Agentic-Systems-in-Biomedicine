@@ -14,6 +14,7 @@ This folder contains importable Langflow agents used in this repository. Each ag
 | `StatisticalAssistantAgent/` | Python-first statistical analysis assistant for uploaded datasets |
 | `HPCOperatorAgent/` | Chimera-focused Slurm operator with MCP-based cluster and archive tools |
 | `LiteratureAgent/` | Literature review pipeline with planning, retrieval, and final synthesis stages |
+| `VariantInterpretationResearchAgent/` | Variant-focused biomedical evidence workflow centered on ClinVar and PubMed |
 | `*/README.md` | Human-readable guide for the flow |
 | `*/images/` | Screenshots used in the documentation |
 | `*.json` | Langflow export ready to import |
@@ -178,6 +179,7 @@ Use the same general process for all agent packages in this folder.
 | `StatisticalAssistantAgent` | `Agents/StatisticalAssistantAgent/StatisticalAssistantAgent.json` |
 | `HPCOperatorAgent` | `Agents/HPCOperatorAgent/HPCOperatorAgent.json` |
 | `LiteratureAgent` | `Agents/LiteratureAgent/LiteratureAgent.json` |
+| `VariantInterpretationResearchAgent` | `Agents/VariantInterpretationResearchAgent/VariantInterpretationResearchAgent.json` |
 
 ### Setup notes by agent
 
@@ -189,6 +191,7 @@ Use the same general process for all agent packages in this folder.
 | `StatisticalAssistantAgent` | Add your OpenAI API key and confirm the Python Interpreter and Read File tools are available |
 | `HPCOperatorAgent` | Add your OpenAI API key and confirm the `chimera-slurm` and `chimera-filecompress` MCP servers are available |
 | `LiteratureAgent` | Add your OpenAI API key and confirm the `arXiv`, Web Search, and URL components can run in your Langflow environment |
+| `VariantInterpretationResearchAgent` | Add your OpenAI API key, point `LANGFLOW_COMPONENTS_PATH` at `Agents/VariantInterpretationResearchAgent/custom_components`, and fill in the NCBI email plus optional NCBI API key on the ClinVar and PubMed components |
 
 ### Suggested first test
 
@@ -204,6 +207,7 @@ Use the same general process for all agent packages in this folder.
 - [`StatisticalAssistantAgent`](StatisticalAssistantAgent/README.md): reproducible statistical analysis flow with file reading and Python execution
 - [`HPCOperatorAgent`](HPCOperatorAgent/README.md): Slurm operations assistant for Chimera with MCP-based job, file, and archive tooling
 - [`LiteratureAgent`](LiteratureAgent/README.md): staged literature search and synthesis flow using `arXiv`, web search, and URL retrieval
+- [`VariantInterpretationResearchAgent`](VariantInterpretationResearchAgent/README.md): ClinVar-first variant evidence workflow for biomedical research questions
 
 ---
 

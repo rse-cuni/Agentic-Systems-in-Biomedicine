@@ -12,3 +12,4 @@ Langflow-based agent prototypes for biomedical research and interpretation workf
 - `Agents/StatisticalAssistantAgent/README.md` documents the Python-based statistical assistant flow.
 - `Agents/HPCOperatorAgent/README.md` documents the Chimera-focused HPC operator flow.
 - `Agents/LiteratureAgent/README.md` documents the literature-search and synthesis flow.
+- `Agents/VariantInterpretationResearchAgent/README.md` documents the ClinVar-first variant evidence workflow.
