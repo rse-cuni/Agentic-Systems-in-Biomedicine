@@ -392,52 +392,6 @@ Read the linked notes, summarize the top five takeaways, list open questions, an
 Use the knowledge base to answer what our current project says about single-cell RNA-seq preprocessing standards and highlight any missing information.
 ```
 
----
-
-## How to import the flow into Langflow
-
-### Step 1 - Open Langflow
-
-Open your Langflow instance in the browser, for example `http://localhost:7860`.
-
-### Step 2 - Import the flow JSON
-
-1. Click **New Flow**.
-2. Choose **Import from file**.
-3. Select `PersonalAssistant.json`.
-
-> The file is located at: `Agents/PersonalAssistant/PersonalAssistant.json`
-
-### Step 3 - Configure credentials
-
-This flow needs more setup than the other examples.
-
-1. Add your **OpenAI API key** to each `OpenAI Custom Model` node.
-2. Add your **Composio API key** and complete auth for:
-   - Gmail
-   - Google Docs
-   - Google Sheets
-   - Google Calendar
-3. If you want the RAG branch, configure **Astra DB** credentials and collection details.
-
-### Step 4 - Check the input pattern
-
-- Use **Chat Input** for the action request.
-- Use **Text Input** for supporting context.
-- The current `Text Input` is prefilled with a Google Doc URL, so replace it if you want a different context source.
-
-### Step 5 - Test one branch at a time
-
-Because the assistant is multi-agent, the safest way to validate it is incrementally:
-
-1. Test Gmail-only tasks.
-2. Test Docs/Sheets-only tasks.
-3. Test Calendar-only tasks.
-4. Then test orchestrated cross-tool tasks.
-5. Treat the RAG branch as experimental until the missing connection is fixed.
-
----
-
 ## Troubleshooting
 
 | Problem | What to check |

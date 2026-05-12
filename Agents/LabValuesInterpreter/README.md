@@ -183,44 +183,6 @@ INR 1.4, albumin 32 g/L, platelets 110.
 B12 80 pmol/L, folate 4 nmol/L.
 ```
 
----
-
-## How to import the flow into Langflow
-
-Follow these steps — no technical knowledge required.
-
-### Step 1 — Open Langflow
-
-Open your web browser and go to your Langflow address (e.g. `http://localhost:7860`). If you do not have Langflow installed, ask your IT contact to set it up first.
-
-### Step 2 — Go to your workspace
-
-On the main screen you will see a list of your existing flows (or an empty page if you have none yet).
-
-### Step 3 — Import the file
-
-1. Look for the **"New Flow"** button (top-right area of the screen) and click it.
-2. In the dialog that opens, choose **"Import from file"** (sometimes shown as an upload icon or "Upload").
-3. A file-picker window will open. Navigate to where you saved `LabValuesInterpreter.json` and select it.
-4. Click **Open / Import**.
-
-> The file is located at: `Agents/LabValuesInterpreter/LabValuesInterpreter.json`
-
-### Step 4 — Add your API key
-
-Once the flow loads you will see the four connected components on the canvas.
-
-1. Click on the **Custom OpenAI Model** component (the purple/blue block).
-2. In the settings panel on the right, paste your **OpenAI API key** into the `API Key` field.
-3. Confirm the **model name** is set to the one you want (e.g. `gpt-4o`).
-
-### Step 5 — Run the agent
-
-1. Click the **Playground** button (bottom of the screen, looks like a speech bubble or play icon).
-2. Type or paste a set of lab results into the chat box.
-3. Press **Enter** or click **Send**.
-4. The interpretation will appear within a few seconds.
-
 ### Troubleshooting
 
 | Problem | What to check |

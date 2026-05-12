@@ -11,6 +11,8 @@ This folder contains importable Langflow agents used in this repository. Each ag
 | `LabValuesInterpreter/` | Educational laboratory interpretation agent |
 | `DeepResearchAgent/` | Multi-agent research and synthesis pipeline |
 | `PersonalAssistant/` | Operational assistant spanning Gmail, Docs, Sheets, Calendar, and a partial RAG branch |
+| `StatisticalAssistant/` | Python-first statistical analysis assistant for uploaded datasets |
+| `HPCOperator/` | Chimera-focused Slurm operator with MCP-based cluster and archive tools |
 | `*/README.md` | Human-readable guide for the flow |
 | `*/images/` | Screenshots used in the documentation |
 | `*.json` | Langflow export ready to import |
@@ -142,11 +144,62 @@ If a flow imports without the custom node rendering correctly, recreate the comp
 
 ---
 
+## How to import flows into Langflow
+
+Use the same general process for all agent packages in this folder.
+
+### Option 1 - Langflow in the browser
+
+1. Open your Langflow workspace in the browser, for example `http://localhost:7860`.
+2. Click **New Flow**.
+3. Choose **Import from file**.
+4. Select the relevant `.json` file from this folder.
+5. Open the imported flow and configure the required credentials or tools.
+6. Launch **Playground** and test a simple request first.
+
+### Option 2 - Langflow desktop app
+
+1. Open the Langflow desktop app.
+2. Go to your workspace or flows view.
+3. Create a new flow or use the import action from the main toolbar or menu.
+4. Choose **Import from file**.
+5. Select the relevant `.json` file from this folder.
+6. Open the imported flow and configure the required credentials or tools.
+7. Launch **Playground** inside the app and test a simple request first.
+
+### Flow files
+
+| Agent | Flow file |
+| ----- | --------- |
+| `LabValuesInterpreter` | `Agents/LabValuesInterpreter/LabValuesInterpreter.json` |
+| `DeepResearchAgent` | `Agents/DeepResearchAgent/DeepResearch.json` |
+| `PersonalAssistant` | `Agents/PersonalAssistant/PersonalAssistant.json` |
+| `StatisticalAssistant` | `Agents/StatisticalAssistant/PythonDataStatisticalAssistant.json` |
+| `HPCOperator` | `Agents/HPCOperator/HPCOperator.json` |
+
+### Setup notes by agent
+
+| Agent | What to configure after import |
+| ----- | ------------------------------ |
+| `LabValuesInterpreter` | Add your OpenAI API key in the custom model node |
+| `DeepResearchAgent` | Add one OpenAI API key and choose the shared model for all research agents |
+| `PersonalAssistant` | Add OpenAI API keys, complete Composio auth for Gmail, Docs, Sheets, and Calendar, and configure Astra DB if you want the RAG branch |
+| `StatisticalAssistant` | Add your OpenAI API key and confirm the Python Interpreter and Read File tools are available |
+| `HPCOperator` | Add your OpenAI API key and confirm the `chimera-slurm` and `chimera-filecompress` MCP servers are available |
+
+### Suggested first test
+
+- Start with a simple request after import so you can confirm the flow loads, credentials work, and the main tool path is connected before trying a more complex task.
+
+---
+
 ## Agent packages in this folder
 
 - [`LabValuesInterpreter`](LabValuesInterpreter/README.md): structured educational interpretation of laboratory results
 - [`DeepResearchAgent`](DeepResearchAgent/README.md): staged research workflow for source gathering, synthesis, review, and final writing
 - [`PersonalAssistant`](PersonalAssistant/README.md): multi-agent operational assistant for email, documents, calendar work, and knowledge retrieval
+- [`StatisticalAssistant`](StatisticalAssistant/README.md): reproducible statistical analysis flow with file reading and Python execution
+- [`HPCOperator`](HPCOperator/README.md): Slurm operations assistant for Chimera with MCP-based job, file, and archive tooling
 
 ---
 

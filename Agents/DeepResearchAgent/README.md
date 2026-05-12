@@ -204,40 +204,6 @@ Explain the main platforms, typical study designs, current bottlenecks, and wher
 - Early project background research
 - Structured briefing before writing a report or slide deck
 
----
-
-## How to import the flow into Langflow
-
-### Step 1 - Open Langflow
-
-Open your Langflow instance in the browser, for example `http://localhost:7860`.
-
-### Step 2 - Import the flow JSON
-
-1. Click **New Flow**.
-2. Choose **Import from file**.
-3. Select `DeepResearch.json`.
-
-> The file is located at: `Agents/DeepResearchAgent/DeepResearch.json`
-
-### Step 3 - Configure the shared model
-
-1. Click the **OpenAI Custom Model** node.
-2. Paste your **OpenAI API key**.
-3. Set the model you want all agents to use.
-
-The same model output is wired into every agent, so you only need to configure it once.
-
-### Step 4 - Run a research question
-
-1. Open the **Playground**.
-2. Paste a broad research question.
-3. Send the message and review the intermediate outputs if needed.
-
-The intermediate `Chat Output` nodes are useful for debugging the planner, source collection, summarization, and final writing stages separately.
-
----
-
 ## Troubleshooting
 
 | Problem | What to check |
