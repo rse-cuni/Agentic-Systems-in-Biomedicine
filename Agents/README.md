@@ -8,11 +8,11 @@ This folder contains importable Langflow agents used in this repository. Each ag
 
 | Path | Purpose |
 | ---- | ------- |
-| `LabValuesInterpreter/` | Educational laboratory interpretation agent |
+| `LabValuesInterpreterAgent/` | Educational laboratory interpretation agent |
 | `DeepResearchAgent/` | Multi-agent research and synthesis pipeline |
-| `PersonalAssistant/` | Operational assistant spanning Gmail, Docs, Sheets, Calendar, and a partial RAG branch |
-| `StatisticalAssistant/` | Python-first statistical analysis assistant for uploaded datasets |
-| `HPCOperator/` | Chimera-focused Slurm operator with MCP-based cluster and archive tools |
+| `PersonalAssistantAgent/` | Operational assistant spanning Gmail, Docs, Sheets, Calendar, and a partial RAG branch |
+| `StatisticalAssistantAgent/` | Python-first statistical analysis assistant for uploaded datasets |
+| `HPCOperatorAgent/` | Chimera-focused Slurm operator with MCP-based cluster and archive tools |
 | `LiteratureAgent/` | Literature review pipeline with planning, retrieval, and final synthesis stages |
 | `*/README.md` | Human-readable guide for the flow |
 | `*/images/` | Screenshots used in the documentation |
@@ -172,22 +172,22 @@ Use the same general process for all agent packages in this folder.
 
 | Agent | Flow file |
 | ----- | --------- |
-| `LabValuesInterpreter` | `Agents/LabValuesInterpreter/LabValuesInterpreter.json` |
-| `DeepResearchAgent` | `Agents/DeepResearchAgent/DeepResearch.json` |
-| `PersonalAssistant` | `Agents/PersonalAssistant/PersonalAssistant.json` |
-| `StatisticalAssistant` | `Agents/StatisticalAssistant/PythonDataStatisticalAssistant.json` |
-| `HPCOperator` | `Agents/HPCOperator/HPCOperator.json` |
+| `LabValuesInterpreterAgent` | `Agents/LabValuesInterpreterAgent/LabValuesInterpreterAgent.json` |
+| `DeepResearchAgent` | `Agents/DeepResearchAgent/DeepResearchAgent.json` |
+| `PersonalAssistantAgent` | `Agents/PersonalAssistantAgent/PersonalAssistantAgent.json` |
+| `StatisticalAssistantAgent` | `Agents/StatisticalAssistantAgent/StatisticalAssistantAgent.json` |
+| `HPCOperatorAgent` | `Agents/HPCOperatorAgent/HPCOperatorAgent.json` |
 | `LiteratureAgent` | `Agents/LiteratureAgent/LiteratureAgent.json` |
 
 ### Setup notes by agent
 
 | Agent | What to configure after import |
 | ----- | ------------------------------ |
-| `LabValuesInterpreter` | Add your OpenAI API key in the custom model node |
+| `LabValuesInterpreterAgent` | Add your OpenAI API key in the custom model node |
 | `DeepResearchAgent` | Add one OpenAI API key and choose the shared model for all research agents |
-| `PersonalAssistant` | Add OpenAI API keys, complete Composio auth for Gmail, Docs, Sheets, and Calendar, and configure Astra DB if you want the RAG branch |
-| `StatisticalAssistant` | Add your OpenAI API key and confirm the Python Interpreter and Read File tools are available |
-| `HPCOperator` | Add your OpenAI API key and confirm the `chimera-slurm` and `chimera-filecompress` MCP servers are available |
+| `PersonalAssistantAgent` | Add OpenAI API keys, complete Composio auth for Gmail, Docs, Sheets, and Calendar, and configure Astra DB if you want the RAG branch |
+| `StatisticalAssistantAgent` | Add your OpenAI API key and confirm the Python Interpreter and Read File tools are available |
+| `HPCOperatorAgent` | Add your OpenAI API key and confirm the `chimera-slurm` and `chimera-filecompress` MCP servers are available |
 | `LiteratureAgent` | Add your OpenAI API key and confirm the `arXiv`, Web Search, and URL components can run in your Langflow environment |
 
 ### Suggested first test
@@ -198,11 +198,11 @@ Use the same general process for all agent packages in this folder.
 
 ## Agent packages in this folder
 
-- [`LabValuesInterpreter`](LabValuesInterpreter/README.md): structured educational interpretation of laboratory results
+- [`LabValuesInterpreterAgent`](LabValuesInterpreterAgent/README.md): structured educational interpretation of laboratory results
 - [`DeepResearchAgent`](DeepResearchAgent/README.md): staged research workflow for source gathering, synthesis, review, and final writing
-- [`PersonalAssistant`](PersonalAssistant/README.md): multi-agent operational assistant for email, documents, calendar work, and knowledge retrieval
-- [`StatisticalAssistant`](StatisticalAssistant/README.md): reproducible statistical analysis flow with file reading and Python execution
-- [`HPCOperator`](HPCOperator/README.md): Slurm operations assistant for Chimera with MCP-based job, file, and archive tooling
+- [`PersonalAssistantAgent`](PersonalAssistantAgent/README.md): multi-agent operational assistant for email, documents, calendar work, and knowledge retrieval
+- [`StatisticalAssistantAgent`](StatisticalAssistantAgent/README.md): reproducible statistical analysis flow with file reading and Python execution
+- [`HPCOperatorAgent`](HPCOperatorAgent/README.md): Slurm operations assistant for Chimera with MCP-based job, file, and archive tooling
 - [`LiteratureAgent`](LiteratureAgent/README.md): staged literature search and synthesis flow using `arXiv`, web search, and URL retrieval
 
 ---

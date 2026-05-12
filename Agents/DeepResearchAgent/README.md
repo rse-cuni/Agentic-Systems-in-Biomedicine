@@ -1,4 +1,4 @@
-# DeepResearch Agent
+# Deep Research Agent
 
 A Langflow multi-agent research pipeline for turning one broad question into a structured report. The flow decomposes the question, searches for sources, summarizes evidence, checks for gaps, and then writes a final synthesis.
 

@@ -24142,6 +24142,6 @@
   "is_component": false,
   "last_tested_version": "1.8.2",
   "locked": false,
-  "name": "Personal Assistant",
+  "name": "PersonalAssistantAgent",
   "tags": []
 }

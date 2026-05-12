@@ -1,4 +1,4 @@
-# Personal Assistant
+# Personal Assistant Agent
 
 A Langflow orchestration flow for operational assistant work across Gmail, Google Docs, Google Sheets, Google Calendar, and an Astra DB-backed knowledge branch. The assistant is designed to take an action request plus optional context, route the task to the right specialist tool-agent, and return a usable result such as a draft, summary, document edit, or calendar action.
 

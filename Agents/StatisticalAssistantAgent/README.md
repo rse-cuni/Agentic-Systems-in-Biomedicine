@@ -1,4 +1,4 @@
-# Statistical Assistant
+# Statistical Assistant Agent
 
 A Langflow agent for statistical analysis and exploratory data work on uploaded files. The flow combines a custom OpenAI model, a Python interpreter, a file reader, and a calculator so the assistant can inspect data, run reproducible analysis code, and explain results clearly.
 

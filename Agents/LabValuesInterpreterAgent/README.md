@@ -1,4 +1,4 @@
-# Lab Values Interpreter
+# Lab Values Interpreter Agent
 
 A Langflow agent for **medical education** that accepts raw laboratory results and returns a structured, clearly formatted interpretation — including reference ranges, abnormality flags, possible clinical patterns, and suggested next diagnostic steps.
 

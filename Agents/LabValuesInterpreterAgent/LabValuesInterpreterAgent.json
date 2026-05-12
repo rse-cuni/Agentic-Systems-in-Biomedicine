@@ -1601,6 +1601,6 @@
   "is_component": false,
   "last_tested_version": "1.8.2",
   "locked": false,
-  "name": "Lab Values Interpreter",
+  "name": "LabValuesInterpreterAgent",
   "tags": []
 }

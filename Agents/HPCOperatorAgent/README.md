@@ -1,4 +1,4 @@
-# HPC Operator
+# HPC Operator Agent
 
 A Langflow agent for operating Slurm workloads on the Chimera cluster through MCP tools. The flow combines a custom OpenAI model, a cluster-operations prompt, the `chimera-slurm` MCP server, and a `chimera-filecompress` MCP server so the assistant can discover cluster state, submit or inspect jobs, troubleshoot failures, and safely create or extract archives.
 
