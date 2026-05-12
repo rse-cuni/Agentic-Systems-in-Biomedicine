@@ -41,18 +41,7 @@ This agent is meant to answer questions like:
 It is not intended to produce clinical advice or a formal ACMG classification.
 
 ---
-
-## Runtime wiring
-
-The exported flow follows this logical path:
-
-- `Chat Input -> Prompt Template: Intake Structuring -> LLM: Input Normalizer`
-- `ClinVar Lookup`, `PubMed Variant Search`, and `MyVariant Lookup` -> `Agent: Evidence Collector` as tools
-- `LLM: Input Normalizer -> Agent: Evidence Collector`
-- `Agent: Evidence Collector -> Prompt Template: Evidence Review -> LLM: Reviewer`
-- `LLM: Reviewer -> Prompt Template: Final Synthesis -> LLM: Writer -> Chat Output`
-
-### Logical chart
+## Logical chart
 
 ```mermaid
 flowchart LR
@@ -82,22 +71,6 @@ flowchart LR
 3. Add your OpenAI API key to the `OpenAI Custom Model` node.
 4. Add your NCBI email to both `ClinVar Lookup` and `PubMed Variant Search`.
 5. Add the same optional NCBI API key to both NCBI-backed components if you want higher rate limits during repeated testing.
-
----
-
-## Why the first version failed
-
-The main failure mode for the earlier BRCA1 `c.68_69delAG` test case was not the biology. It was retrieval fragility:
-
-- the ClinVar lookup depended too much on one query string
-- legacy aliases like `185delAG` were not guaranteed to be tried
-- the final synthesis prompt was allowed to hide a database retrieval failure behind a polished summary
-
-The fix is:
-
-1. normalize the input into structured fields
-2. pass alias queries into the ClinVar tool
-3. require the writer to state when primary database retrieval failed
 
 ---
 
@@ -148,16 +121,6 @@ Use the custom component in [pubmed_variant_search.py](/Users/preislet/Documents
 Use the custom component in [myvariant_lookup.py](/Users/preislet/Documents/RSE/Agentic-Systems-in-Biomedicine/Agents/VariantInterpretationResearchAgent/custom_components/biomed/myvariant_lookup.py). It should be used only as enrichment and should not outrank ClinVar for interpretation claims.
 
 ---
-
-## How to connect the ClinVar tool
-
-Wire the flow like this:
-
-- `OpenAI Custom Model -> Evidence Collector Agent -> Language Model`
-- `ClinVar Lookup -> Toolset -> Evidence Collector Agent -> Tools`
-- `PubMed Variant Search -> Toolset -> Evidence Collector Agent -> Tools`
-- `MyVariant Lookup -> Toolset -> Evidence Collector Agent -> Tools`
-- `Chat Input -> Evidence Collector Agent -> Input`
 
 Important note:
 

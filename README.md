@@ -1,6 +1,5 @@
 # Agentic Systems in Biomedicine
 
-![Agentic Systems in Biomedicine banner](images/agentic-systems-biomedicine-banner.svg)
 
 This repository accompanies the **Agentic Systems in Biomedicine** learning programme. It collects workshop materials, Langflow exports, custom components, and example agent workflows used to discuss how large-language-model-based agents can support biomedical research, analysis, and research infrastructure.
 
