@@ -13,6 +13,7 @@ This folder contains importable Langflow agents used in this repository. Each ag
 | `PersonalAssistant/` | Operational assistant spanning Gmail, Docs, Sheets, Calendar, and a partial RAG branch |
 | `StatisticalAssistant/` | Python-first statistical analysis assistant for uploaded datasets |
 | `HPCOperator/` | Chimera-focused Slurm operator with MCP-based cluster and archive tools |
+| `LiteratureAgent/` | Literature review pipeline with planning, retrieval, and final synthesis stages |
 | `*/README.md` | Human-readable guide for the flow |
 | `*/images/` | Screenshots used in the documentation |
 | `*.json` | Langflow export ready to import |
@@ -176,6 +177,7 @@ Use the same general process for all agent packages in this folder.
 | `PersonalAssistant` | `Agents/PersonalAssistant/PersonalAssistant.json` |
 | `StatisticalAssistant` | `Agents/StatisticalAssistant/PythonDataStatisticalAssistant.json` |
 | `HPCOperator` | `Agents/HPCOperator/HPCOperator.json` |
+| `LiteratureAgent` | `Agents/LiteratureAgent/LiteratureAgent.json` |
 
 ### Setup notes by agent
 
@@ -186,6 +188,7 @@ Use the same general process for all agent packages in this folder.
 | `PersonalAssistant` | Add OpenAI API keys, complete Composio auth for Gmail, Docs, Sheets, and Calendar, and configure Astra DB if you want the RAG branch |
 | `StatisticalAssistant` | Add your OpenAI API key and confirm the Python Interpreter and Read File tools are available |
 | `HPCOperator` | Add your OpenAI API key and confirm the `chimera-slurm` and `chimera-filecompress` MCP servers are available |
+| `LiteratureAgent` | Add your OpenAI API key and confirm the `arXiv`, Web Search, and URL components can run in your Langflow environment |
 
 ### Suggested first test
 
@@ -200,6 +203,7 @@ Use the same general process for all agent packages in this folder.
 - [`PersonalAssistant`](PersonalAssistant/README.md): multi-agent operational assistant for email, documents, calendar work, and knowledge retrieval
 - [`StatisticalAssistant`](StatisticalAssistant/README.md): reproducible statistical analysis flow with file reading and Python execution
 - [`HPCOperator`](HPCOperator/README.md): Slurm operations assistant for Chimera with MCP-based job, file, and archive tooling
+- [`LiteratureAgent`](LiteratureAgent/README.md): staged literature search and synthesis flow using `arXiv`, web search, and URL retrieval
 
 ---
 
