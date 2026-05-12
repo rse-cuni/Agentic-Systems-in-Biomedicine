@@ -5,6 +5,7 @@ Langflow-based agent prototypes for biomedical research and interpretation workf
 ## Repository guide
 
 - `Agents/README.md` explains how the agent folder is organized and why the flows use a custom OpenAI model component.
+- `Presentations/README.md` describes the slide decks and exported presentation assets.
 - `Agents/LabValuesInterpreterAgent/README.md` documents the laboratory interpretation flow.
 - `Agents/DeepResearchAgent/README.md` documents the multi-agent deep research flow.
 - `Agents/PersonalAssistantAgent/README.md` documents the multi-tool personal assistant flow.
