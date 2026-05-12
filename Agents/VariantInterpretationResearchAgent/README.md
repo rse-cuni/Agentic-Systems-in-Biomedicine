@@ -6,11 +6,11 @@ A Langflow research workflow for structured evidence gathering around a single h
 
 ## Pipeline overview
 
-![Pipeline](images/image.png)
+![Pipeline](image.png)
 
 The exported Langflow file is [`VariantInterpretationResearchAgent.json`](/Users/preislet/Documents/RSE/Agentic-Systems-in-Biomedicine/Agents/VariantInterpretationResearchAgent/VariantInterpretationResearchAgent.json).
 
-The flow uses one normalization stage, one tool-using evidence collector, and two downstream review and writing stages:
+The flow uses one normalization stage, one tool-using evidence collector, and two downstream review and writing stages. In the current version, the evidence-collector prompt also receives the original user request directly, and the final writing prompt receives both the reviewer output and the evidence collector output directly.
 
 | Component | Role |
 | --------- | ---- |
@@ -23,7 +23,7 @@ The flow uses one normalization stage, one tool-using evidence collector, and tw
 | **Agent: Evidence Collector** | Chooses tools and gathers evidence |
 | **Prompt Template: Evidence Review** | Packages tool output for critical review |
 | **LLM: Reviewer** | Checks evidence quality and gaps |
-| **Prompt Template: Final Synthesis** | Frames the final answer |
+| **Prompt Template: Final Synthesis** | Combines reviewer output with direct evidence-agent output for the final report |
 | **LLM: Writer** | Produces the final research brief |
 | **Chat Output** | Displays the result in Playground |
 
@@ -41,14 +41,32 @@ This agent is meant to answer questions like:
 It is not intended to produce clinical advice or a formal ACMG classification.
 
 ---
+## Runtime wiring
+
+The exported flow now follows this path:
+
+- `Chat Input -> Prompt Template: Intake Structuring -> LLM: Input Normalizer`
+- `Chat Input -> Prompt Template: Evidence Collector`
+- `ClinVar Lookup`, `PubMed Variant Search`, and `MyVariant Lookup` -> `Agent: Evidence Collector` as tools
+- `LLM: Input Normalizer -> Agent: Evidence Collector`
+- `Agent: Evidence Collector -> Prompt Template: Evidence Review -> LLM: Reviewer`
+- `LLM: Reviewer -> Prompt Template: Final Synthesis -> LLM: Writer -> Chat Output`
+- `Agent: Evidence Collector -> Prompt Template: Final Synthesis` as a second input carrying the raw evidence-agent output
+
+So the evidence collector is no longer driven only by normalized intake fields. It also keeps access to the user’s original wording, which helps preserve the exact research question while still benefiting from normalization. The final writer also no longer depends only on the reviewer stage. It now sees both the reviewer’s structured summary and the evidence collector’s direct output, which makes it easier to preserve exact tool findings and avoid losing important details during packaging.
+
+---
+
 ## Logical chart
 
 ```mermaid
 flowchart LR
     A["Chat Input"] --> B["Prompt Template: Intake Structuring"]
     B --> C["LLM: Input Normalizer"]
+    A --> M["Prompt Template: Evidence Collector"]
 
     C --> D["Agent: Evidence Collector"]
+    M --> D
 
     E["ClinVar Lookup"] --> D
     F["PubMed Variant Search"] --> D
@@ -58,6 +76,7 @@ flowchart LR
     H --> I["LLM: Reviewer"]
 
     I --> J["Prompt Template: Final Synthesis"]
+    D --> J
     J --> K["LLM: Writer"]
     K --> L["Chat Output"]
 ```
@@ -122,9 +141,25 @@ Use the custom component in [myvariant_lookup.py](/Users/preislet/Documents/RSE/
 
 ---
 
+## Prompt handoff note
+
 Important note:
 
 The custom ClinVar component exposes `query`, `gene`, `variant`, and `alias_queries` in tool mode. That means the agent can pass these fields dynamically during tool calling instead of depending on static values typed into the component.
+
+The evidence-collector prompt now also exposes a `user_input` field. In practice this means:
+
+- `previous_response` carries the normalized intake output
+- `user_input` carries the original chat request
+
+This extra edge helps the evidence collector preserve the user’s exact question framing, especially when condition wording or intent details matter but normalization compresses them.
+
+The final prompt template now also exposes an `evidence` input. In practice this means:
+
+- `final_input` carries the reviewer-stage material
+- `evidence` carries the direct response from the evidence collector agent
+
+This extra edge is useful when you want the final writer to keep access to the raw gathered evidence rather than relying only on reviewer compression.
 
 ---
 
