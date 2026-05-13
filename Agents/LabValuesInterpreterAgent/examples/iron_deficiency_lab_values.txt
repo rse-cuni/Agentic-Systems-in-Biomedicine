@@ -1,0 +1,29 @@
+Patient: Male, 55 years old
+Reason for testing: fatigue and reduced exercise tolerance
+Requested by: outpatient internal medicine
+Collection date: 2026-05-10
+
+Complete Blood Count
+Hemoglobin: 95 g/L
+Hematocrit: 0.31
+WBC: 6.2 x10^9/L
+Platelets: 280 x10^9/L
+MCV: 72 fL
+Neutrophils (abs): 4.0 x10^9/L
+Lymphocytes (abs): 1.7 x10^9/L
+
+Biochemistry
+Ferritin: 8 ug/L (reference 30-300 ug/L)
+Creatinine: 88 umol/L
+Urea: 5.3 mmol/L
+Sodium: 139 mmol/L
+Potassium: 4.2 mmol/L
+Chloride: 103 mmol/L
+Glucose (fasting): 5.1 mmol/L
+ALT: 22 U/L
+AST: 20 U/L
+GGT: 24 U/L
+Bilirubin total: 14 umol/L
+CRP: 3 mg/L
+
+
