@@ -402,3 +402,93 @@ Use the knowledge base to answer what our current project says about single-cell
 | The knowledge-base answer is weak or ungrounded | The current Astra DB / Parser / RAG branch is only partially wired in this export |
 | One branch works but another does not | Each specialist uses its own model node and tool configuration, so check that branch independently |
 | The context seems wrong | Replace the default value in `Text Input` before running the request |
+
+### Gmail Composio type hotfix
+
+If Gmail fails with a Composio `type` or schema error, avoid upgrading straight to `composio==0.13.0` in Langflow Desktop. That version can pull newer LangChain dependencies that may not be safe for the Desktop Langflow version used in this workshop.
+
+Patch the older Composio file directly instead.
+
+On macOS and Linux, the file is:
+
+```bash
+$HOME/.langflow/.langflow-venv/lib/python3.12/site-packages/composio/core/models/_files.py
+```
+
+Create a backup:
+
+```bash
+cp -n "$HOME/.langflow/.langflow-venv/lib/python3.12/site-packages/composio/core/models/_files.py" \
+   "$HOME/.langflow/.langflow-venv/lib/python3.12/site-packages/composio/core/models/_files.py.bak"
+```
+
+Apply the hotfix:
+
+```bash
+"$HOME/.langflow/.langflow-venv/bin/python" - <<'PY'
+from pathlib import Path
+
+p = Path.home() / ".langflow/.langflow-venv/lib/python3.12/site-packages/composio/core/models/_files.py"
+s = p.read_text()
+
+old = 'if isinstance(request[_param], dict) and params[_param]["type"] == "object":'
+new = 'if isinstance(request[_param], dict) and isinstance(params.get(_param), dict) and params[_param].get("type") == "object":'
+
+if old not in s:
+    print("Pattern not found. The file may already be patched or the code is different.")
+else:
+    p.write_text(s.replace(old, new))
+    print("Patch applied.")
+PY
+```
+
+On Windows, the file is usually:
+
+```powershell
+$env:APPDATA\com.Langflow\.langflow-venv\Lib\site-packages\composio\core\models\_files.py
+```
+
+Create a backup:
+
+```powershell
+$source = "$env:APPDATA\com.Langflow\.langflow-venv\Lib\site-packages\composio\core\models\_files.py"
+$backup = "$source.bak"
+if (-not (Test-Path $backup)) {
+  Copy-Item $source $backup
+}
+```
+
+Apply the hotfix:
+
+```powershell
+& "$env:APPDATA\com.Langflow\.langflow-venv\Scripts\python.exe" -c @'
+from pathlib import Path
+import os
+
+p = Path(os.environ["APPDATA"]) / "com.Langflow/.langflow-venv/Lib/site-packages/composio/core/models/_files.py"
+s = p.read_text()
+
+old = 'if isinstance(request[_param], dict) and params[_param]["type"] == "object":'
+new = 'if isinstance(request[_param], dict) and isinstance(params.get(_param), dict) and params[_param].get("type") == "object":'
+
+if old not in s:
+    print("Pattern not found. The file may already be patched or the code is different.")
+else:
+    p.write_text(s.replace(old, new))
+    print("Patch applied.")
+'@
+```
+
+The hotfix changes the unsafe lookup:
+
+```python
+if isinstance(request[_param], dict) and params[_param]["type"] == "object":
+```
+
+to a guarded lookup:
+
+```python
+if isinstance(request[_param], dict) and isinstance(params.get(_param), dict) and params[_param].get("type") == "object":
+```
+
+This prevents Composio from crashing when a Gmail tool parameter named `type` or a malformed schema entry reaches the file handling logic.
