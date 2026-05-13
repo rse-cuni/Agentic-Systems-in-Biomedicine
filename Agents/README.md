@@ -146,6 +146,181 @@ If a flow imports without the custom node rendering correctly, recreate the comp
 
 ---
 
+## Install Langflow
+
+You can use these agents either in Langflow Desktop or in a Python-installed Langflow instance. Desktop is the easiest path for workshops, while the Python route gives you more direct control over versions and packages.
+
+### Option 1 - Langflow Desktop
+
+1. Download and install Langflow Desktop from the [Langflow website](https://www.langflow.org/).
+2. Open the app once so it can create its internal files and virtual environment.
+3. Import one of the flow JSON files from this folder.
+4. Configure the credentials required by that agent.
+
+Langflow Desktop creates its own Python environment. That means packages used by Langflow tools, especially the **Python Interpreter**, must be installed into the Desktop environment instead of only into your normal system Python.
+
+On macOS, the Desktop Python interpreter is usually:
+
+```bash
+"$HOME/.langflow/.langflow-venv/bin/python"
+```
+
+To install one package directly into that environment:
+
+```bash
+"$HOME/.langflow/.langflow-venv/bin/python" -m pip install PACKAGE_NAME
+```
+
+On Windows, the Desktop Python interpreter is usually:
+
+```powershell
+& "$env:APPDATA\com.Langflow\.langflow-venv\Scripts\python.exe"
+```
+
+To install one package directly into that environment:
+
+```powershell
+& "$env:APPDATA\com.Langflow\.langflow-venv\Scripts\python.exe" -m pip install PACKAGE_NAME
+```
+
+The safer Desktop method is to add packages to Langflow Desktop's `requirements.txt` file and then restart the app. Langflow Desktop will install those packages into its own virtual environment.
+
+On macOS, the file is:
+
+```bash
+$HOME/.langflow/data/requirements.txt
+```
+
+On Windows, the file is:
+
+```powershell
+$env:APPDATA\com.Langflow\data\requirements.txt
+```
+
+### Option 2 - Python package with uv
+
+Use this route if you want a browser-based local Langflow server and full control over the Python environment.
+
+```bash
+uv venv langflow-venv
+source langflow-venv/bin/activate
+uv pip install langflow
+uv run langflow run
+```
+
+Then open Langflow in your browser at:
+
+```text
+http://127.0.0.1:7860
+```
+
+On Windows PowerShell:
+
+```powershell
+uv venv langflow-venv
+.\langflow-venv\Scripts\Activate.ps1
+uv pip install langflow
+uv run langflow run
+```
+
+Then open:
+
+```text
+http://127.0.0.1:7860
+```
+
+---
+
+## Installing Python libraries for agents
+
+The `StatisticalAssistantAgent` and any flow using the **Python Interpreter** need their analysis libraries installed in the same Python environment that Langflow is using.
+
+Useful starter libraries for statistics and data analysis are:
+
+```text
+pandas
+numpy
+scipy
+statsmodels
+scikit-learn
+matplotlib
+seaborn
+plotly
+openpyxl
+```
+
+### Langflow Desktop on macOS
+
+Add the starter libraries to Desktop's requirements file:
+
+```bash
+mkdir -p "$HOME/.langflow/data"
+cat >> "$HOME/.langflow/data/requirements.txt" <<'EOF'
+pandas
+numpy
+scipy
+statsmodels
+scikit-learn
+matplotlib
+seaborn
+plotly
+openpyxl
+EOF
+```
+
+Restart Langflow Desktop after editing `requirements.txt`.
+
+If you only need one package quickly, you can install it directly:
+
+```bash
+"$HOME/.langflow/.langflow-venv/bin/python" -m pip install PACKAGE_NAME
+```
+
+### Langflow Desktop on Windows
+
+Add the starter libraries to Desktop's requirements file:
+
+```powershell
+New-Item -ItemType Directory -Force "$env:APPDATA\com.Langflow\data" | Out-Null
+@"
+pandas
+numpy
+scipy
+statsmodels
+scikit-learn
+matplotlib
+seaborn
+plotly
+openpyxl
+"@ | Add-Content "$env:APPDATA\com.Langflow\data\requirements.txt"
+```
+
+Restart Langflow Desktop after editing `requirements.txt`.
+
+If you only need one package quickly, you can install it directly:
+
+```powershell
+& "$env:APPDATA\com.Langflow\.langflow-venv\Scripts\python.exe" -m pip install PACKAGE_NAME
+```
+
+### Python-installed Langflow
+
+If you installed Langflow with `uv`, activate the same environment first and install the packages there:
+
+```bash
+source langflow-venv/bin/activate
+uv pip install pandas numpy scipy statsmodels scikit-learn matplotlib seaborn plotly openpyxl
+```
+
+On Windows PowerShell:
+
+```powershell
+.\langflow-venv\Scripts\Activate.ps1
+uv pip install pandas numpy scipy statsmodels scikit-learn matplotlib seaborn plotly openpyxl
+```
+
+---
+
 ## How to import flows into Langflow
 
 Use the same general process for all agent packages in this folder.
@@ -192,6 +367,96 @@ Use the same general process for all agent packages in this folder.
 | `HPCOperatorAgent` | Add your OpenAI API key and confirm the `chimera-slurm` and `chimera-filecompress` MCP servers are available |
 | `LiteratureAgent` | Add your OpenAI API key and confirm the `arXiv`, Web Search, and URL components can run in your Langflow environment |
 | `VariantInterpretationResearchAgent` | Add your OpenAI API key, point `LANGFLOW_COMPONENTS_PATH` at `Agents/VariantInterpretationResearchAgent/custom_components`, and fill in the NCBI email plus optional NCBI API key on the ClinVar and PubMed components |
+
+### Personal Assistant Gmail hotfix
+
+The `PersonalAssistantAgent` uses the Composio Gmail component. If Gmail fails with a Composio `type` or schema error, avoid upgrading straight to `composio==0.13.0` in Langflow Desktop. That version can pull newer LangChain dependencies that may not be safe for the Desktop Langflow version used in this workshop.
+
+Patch the older Composio file directly instead.
+
+On macOS, the file is:
+
+```bash
+$HOME/.langflow/.langflow-venv/lib/python3.12/site-packages/composio/core/models/_files.py
+```
+
+Create a backup:
+
+```bash
+cp -n "$HOME/.langflow/.langflow-venv/lib/python3.12/site-packages/composio/core/models/_files.py" \
+   "$HOME/.langflow/.langflow-venv/lib/python3.12/site-packages/composio/core/models/_files.py.bak"
+```
+
+Apply the hotfix:
+
+```bash
+"$HOME/.langflow/.langflow-venv/bin/python" - <<'PY'
+from pathlib import Path
+
+p = Path.home() / ".langflow/.langflow-venv/lib/python3.12/site-packages/composio/core/models/_files.py"
+s = p.read_text()
+
+old = 'if isinstance(request[_param], dict) and params[_param]["type"] == "object":'
+new = 'if isinstance(request[_param], dict) and isinstance(params.get(_param), dict) and params[_param].get("type") == "object":'
+
+if old not in s:
+    print("Pattern not found. The file may already be patched or the code is different.")
+else:
+    p.write_text(s.replace(old, new))
+    print("Patch applied.")
+PY
+```
+
+On Windows, the file is usually:
+
+```powershell
+$env:APPDATA\com.Langflow\.langflow-venv\Lib\site-packages\composio\core\models\_files.py
+```
+
+Create a backup:
+
+```powershell
+$source = "$env:APPDATA\com.Langflow\.langflow-venv\Lib\site-packages\composio\core\models\_files.py"
+$backup = "$source.bak"
+if (-not (Test-Path $backup)) {
+  Copy-Item $source $backup
+}
+```
+
+Apply the hotfix:
+
+```powershell
+& "$env:APPDATA\com.Langflow\.langflow-venv\Scripts\python.exe" -c @'
+from pathlib import Path
+import os
+
+p = Path(os.environ["APPDATA"]) / "com.Langflow/.langflow-venv/Lib/site-packages/composio/core/models/_files.py"
+s = p.read_text()
+
+old = 'if isinstance(request[_param], dict) and params[_param]["type"] == "object":'
+new = 'if isinstance(request[_param], dict) and isinstance(params.get(_param), dict) and params[_param].get("type") == "object":'
+
+if old not in s:
+    print("Pattern not found. The file may already be patched or the code is different.")
+else:
+    p.write_text(s.replace(old, new))
+    print("Patch applied.")
+'@
+```
+
+The hotfix changes the unsafe lookup:
+
+```python
+if isinstance(request[_param], dict) and params[_param]["type"] == "object":
+```
+
+to a guarded lookup:
+
+```python
+if isinstance(request[_param], dict) and isinstance(params.get(_param), dict) and params[_param].get("type") == "object":
+```
+
+This prevents Composio from crashing when a Gmail tool parameter named `type` or a malformed schema entry reaches the file handling logic.
 
 ### Suggested first test
 
