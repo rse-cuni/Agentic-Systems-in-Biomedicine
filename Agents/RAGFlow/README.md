@@ -51,7 +51,7 @@ LLM Responseesponse
 
 ## Flow Visualization
 
-![RAG Flow](image/RAGFlow.png)
+![RAG Flow](images/RAGFlow.png)
 
 ## Main Components
 
