@@ -159,7 +159,7 @@ You can use these agents either in Langflow Desktop or in a Python-installed Lan
 
 Langflow Desktop creates its own Python environment. That means packages used by Langflow tools, especially the **Python Interpreter**, must be installed into the Desktop environment instead of only into your normal system Python.
 
-On macOS, the Desktop Python interpreter is usually:
+On macOS and Linux, the Desktop Python interpreter is usually:
 
 ```bash
 "$HOME/.langflow/.langflow-venv/bin/python"
@@ -185,7 +185,7 @@ To install one package directly into that environment:
 
 The safer Desktop method is to add packages to Langflow Desktop's `requirements.txt` file and then restart the app. Langflow Desktop will install those packages into its own virtual environment.
 
-On macOS, the file is:
+On macOS and Linux, the file is:
 
 ```bash
 $HOME/.langflow/data/requirements.txt
@@ -249,7 +249,7 @@ plotly
 openpyxl
 ```
 
-### Langflow Desktop on macOS
+### Langflow Desktop on macOS and Linux
 
 Add the starter libraries to Desktop's requirements file:
 
@@ -374,7 +374,7 @@ The `PersonalAssistantAgent` uses the Composio Gmail component. If Gmail fails w
 
 Patch the older Composio file directly instead.
 
-On macOS, the file is:
+On macOS and Linux, the file is:
 
 ```bash
 $HOME/.langflow/.langflow-venv/lib/python3.12/site-packages/composio/core/models/_files.py
