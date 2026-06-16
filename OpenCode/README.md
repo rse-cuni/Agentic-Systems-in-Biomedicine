@@ -1,19 +1,61 @@
-# OpenCode e-INFRA Setup
+# OpenCode Course Setup
 
-This folder contains an example [`opencode.json`](opencode.json) for using
-OpenCode with the e-INFRA CZ OpenAI-compatible LLM endpoint and the Chimera MCP
-servers used in the workshop.
+This folder contains OpenCode setup notes for the course. Start by connecting
+OpenAI inside OpenCode, then optionally add the e-INFRA CZ provider and Chimera
+MCP servers used in the workshop.
 
 It also contains [`ChimeraResearchTeam/`](ChimeraResearchTeam/), a copy-pasteable
 OpenCode team of research agents, subagents, commands, skills, and templates.
-Set up the provider config first, then follow
+If you want to use that team with the Chimera MCP tools, set up the e-INFRA
+provider config below first, then follow
 [`ChimeraResearchTeam/README.md`](ChimeraResearchTeam/README.md) to install the
 team into a project.
 
-The config is safe to share because it does not contain an API token. It reads
-the token from the environment variable `E_INFRA_API_TOKEN`.
+The example [`opencode.json`](opencode.json) is safe to share because it does not
+contain an API token. It reads the e-INFRA token from the environment variable
+`E_INFRA_API_TOKEN`.
 
-## 1. Get an e-INFRA API token
+## 1. Connect OpenAI in OpenCode
+
+> **_NOTE:_**  If you are attending the RSE course, you should be given an OpenAI API key for
+the course. If you do not receive one, ask the course team for it.
+
+Start OpenCode from the project you want to work in:
+
+```bash
+cd /path/to/your/project
+opencode
+```
+
+Inside OpenCode, run:
+
+```text
+/connect
+```
+
+Choose the OpenAI provider. If OpenCode asks for the auth method, choose the
+manual API key option, paste the course OpenAI API key, and confirm. Treat the
+key like a password: do not paste it into `opencode.json`, commit it to Git, or
+share it in screenshots.
+
+After connecting, choose a model:
+
+```text
+/models
+```
+
+Select the OpenAI model recommended by the course team.
+
+If the course team asks you to use the OpenCode-hosted provider instead, use
+the same `/connect` command, choose `OpenCode Zen`, follow the browser sign-in
+flow, and paste the key or token when OpenCode asks for it.
+
+## 2. Add e-INFRA for course infrastructure
+
+The e-INFRA setup is needed if you want to use the shared e-INFRA models or the
+Chimera MCP tools from the example config.
+
+### 2.1 Get an e-INFRA API token
 
 1. Open [https://chat.ai.e-infra.cz](https://chat.ai.e-infra.cz).
 2. Sign in with your institutional or e-INFRA identity.
@@ -27,7 +69,7 @@ e-INFRA AI/LLM service.
 Treat the token like a password. Do not paste it into `opencode.json`, do not
 commit it to Git, and do not share it in screenshots.
 
-## 2. Save the token for OpenCode
+### 2.2 Save the e-INFRA token for OpenCode
 
 OpenCode reads the token from `E_INFRA_API_TOKEN`, because
 [`opencode.json`](opencode.json) contains:
@@ -47,6 +89,8 @@ For example, for the default macOS `zsh` shell:
 
 ```bash
 nano ~/.zshrc
+# If your terminal uses bash instead, use:
+# nano ~/.bashrc
 ```
 
 Add:
@@ -59,6 +103,8 @@ Then reload the shell:
 
 ```bash
 source ~/.zshrc
+# If you added the line to ~/.bashrc instead, use:
+# source ~/.bashrc
 ```
 
 On Windows PowerShell, set it for your user account:
@@ -69,7 +115,7 @@ On Windows PowerShell, set it for your user account:
 
 Open a new terminal after setting the variable.
 
-## 3. Copy the OpenCode config
+### 2.3 Copy the OpenCode config
 
 OpenCode can load config from a global user location or from a project root.
 Use one of these options.
@@ -105,7 +151,7 @@ opencode
 OpenCode also supports custom config paths with `OPENCODE_CONFIG`. See the
 [OpenCode config documentation](https://opencode.ai/docs/config) for details.
 
-## 4. Edit the Chimera MCP settings
+### 2.4 Edit the Chimera MCP settings
 
 The example config includes two MCP servers:
 
@@ -134,7 +180,7 @@ the two servers to:
 "enabled": false
 ```
 
-## 5. Start OpenCode and choose a model
+### 2.5 Choose an e-INFRA model
 
 Run OpenCode from the project where the config applies:
 
@@ -169,6 +215,7 @@ uses a different model.
 
 | Problem | What to check |
 | --- | --- |
+| OpenAI connection fails | Run `/connect` again inside OpenCode and confirm that you pasted the course OpenAI API key into the OpenAI provider flow. |
 | OpenCode cannot see `einfra` models | Make sure `opencode.json` is in `~/.config/opencode/opencode.json` or in the project root where you run `opencode`. |
 | Authentication fails | Check that `E_INFRA_API_TOKEN` is set in the same terminal where you start OpenCode. |
 | MCP servers fail to start | Replace `user@hpc.troja.mff.cuni.cz` with your real HPC login and verify SSH access first. |
