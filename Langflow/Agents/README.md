@@ -136,7 +136,7 @@ class CustomOpenAIModel(Component):
 
 ## How to use the component in Langflow
 
-1. Import one of the JSON files from this folder.
+1. Drag and drop one of the JSON files from this folder into Langflow.
 2. Open the `OpenAI Custom Model` node inside the flow.
 3. Paste your OpenAI API key.
 4. Choose a model from the dropdown, or select `custom` and type the exact model string.
@@ -154,7 +154,7 @@ You can use these agents either in Langflow Desktop or in a Python-installed Lan
 
 1. Download and install Langflow Desktop from the [Langflow website](https://www.langflow.org/).
 2. Open the app once so it can create its internal files and virtual environment.
-3. Import one of the flow JSON files from this folder.
+3. Drag and drop one of the flow JSON files from this folder into Langflow to import it.
 4. Configure the credentials required by that agent.
 
 Langflow Desktop creates its own Python environment. That means packages used by Langflow tools, especially the **Python Interpreter**, must be installed into the Desktop environment instead of only into your normal system Python.
@@ -328,21 +328,19 @@ Use the same general process for all agent packages in this folder.
 ### Option 1 - Langflow in the browser
 
 1. Open your Langflow workspace in the browser, for example `http://localhost:7860`.
-2. Click **New Flow**.
-3. Choose **Import from file**.
-4. Select the relevant `.json` file from this folder.
-5. Open the imported flow and configure the required credentials or tools.
-6. Launch **Playground** and test a simple request first.
+2. Drag and drop the relevant `.json` file from this folder into the Langflow workspace.
+3. If your Langflow version shows an import action, you can use it, but there may be no visible **Import flow** button.
+4. Open the imported flow and configure the required credentials or tools.
+5. Launch **Playground** and test a simple request first.
 
 ### Option 2 - Langflow desktop app
 
 1. Open the Langflow desktop app.
 2. Go to your workspace or flows view.
-3. Create a new flow or use the import action from the main toolbar or menu.
-4. Choose **Import from file**.
-5. Select the relevant `.json` file from this folder.
-6. Open the imported flow and configure the required credentials or tools.
-7. Launch **Playground** inside the app and test a simple request first.
+3. Drag and drop the relevant `.json` file from this folder into the app window.
+4. If your Langflow version shows an import action, you can use it, but there may be no visible **Import flow** button.
+5. Open the imported flow and configure the required credentials or tools.
+6. Launch **Playground** inside the app and test a simple request first.
 
 ### Flow files
 

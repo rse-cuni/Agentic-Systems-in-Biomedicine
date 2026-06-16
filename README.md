@@ -9,7 +9,7 @@ The main emphasis is practical: what agentic systems are, how they differ from o
 
 - **Program type:** Learning programme
 - **Target group:** Pedagogical staff, PhD students, DPP employees, and related research or technical staff
-- **Format:** Hands-on workshop with Langflow-based examples
+- **Format:** Hands-on workshop with Langflow and OpenCode examples
 
 Agentic systems based on large language models can plan analysis steps, call external tools, work with files and structured data, and interact with computational resources. In biomedical research, that makes them interesting not only for literature work and interpretation tasks, but also for operational workflows that span scripts, APIs, and HPC environments.
 
@@ -30,31 +30,38 @@ The repository is organized around reusable teaching materials and concrete flow
 
 | Path | Purpose |
 | ---- | ------- |
-| [`Agents/`](Agents/) | Importable Langflow agent workflows used in the course |
+| [`Langflow/`](Langflow/) | Langflow setup notes, including the JupyterHub launcher and local install options |
+| [`Langflow/Agents/`](Langflow/Agents/) | Importable Langflow agent workflows used in the course |
+| [`Langflow/Components/`](Langflow/Components/) | Reusable Langflow custom components, including the e-INFRA CZ LLM provider |
+| [`OpenCode/`](OpenCode/) | OpenCode config, e-INFRA setup notes, and the Chimera research-team agent pack |
+| [`OpenCode/ChimeraResearchTeam/`](OpenCode/ChimeraResearchTeam/) | Copy-pasteable OpenCode agents, subagents, commands, skills, and templates for a research lab team |
 | [`Presentations/`](Presentations/) | Slide decks and exported presentation assets |
-| [`LangflowCustomComponents/`](LangflowCustomComponents/) | Shared custom Langflow components used across flows |
-| [`Agents/README.md`](Agents/README.md) | Overview of the agent packages and import notes |
+| [`Langflow/README.md`](Langflow/README.md) | How to access Langflow through JupyterHub and install it locally if needed |
+| [`Langflow/Agents/README.md`](Langflow/Agents/README.md) | Overview of the agent packages and import notes |
+| [`OpenCode/README.md`](OpenCode/README.md) | Where to obtain the e-INFRA API token, where to save it, and where to copy the OpenCode config |
 | [`Presentations/README.md`](Presentations/README.md) | Overview of the teaching decks |
 
 ## Included example agents
 
 These flows are designed as teaching prototypes rather than polished products. They are useful for demonstrating different patterns of tool use, workflow decomposition, and agent behavior.
 
-- [`LabValuesInterpreterAgent`](Agents/LabValuesInterpreterAgent/README.md): educational interpretation of laboratory values
-- [`LiteratureAgent`](Agents/LiteratureAgent/README.md): literature planning, search, and synthesis
-- [`DeepResearchAgent`](Agents/DeepResearchAgent/README.md): staged multi-agent research workflow
-- [`StatisticalAssistantAgent`](Agents/StatisticalAssistantAgent/README.md): Python-backed analysis of uploaded datasets
-- [`PersonalAssistantAgent`](Agents/PersonalAssistantAgent/README.md): operational assistant spanning productivity tools and a partial RAG branch
-- [`HPCOperatorAgent`](Agents/HPCOperatorAgent/README.md): Chimera-focused Slurm and archive operations through MCP tools
-- [`VariantInterpretationResearchAgent`](Agents/VariantInterpretationResearchAgent/README.md): ClinVar-first variant evidence workflow for biomedical research questions
+- [`LabValuesInterpreterAgent`](Langflow/Agents/LabValuesInterpreterAgent/README.md): educational interpretation of laboratory values
+- [`LiteratureAgent`](Langflow/Agents/LiteratureAgent/README.md): literature planning, search, and synthesis
+- [`DeepResearchAgent`](Langflow/Agents/DeepResearchAgent/README.md): staged multi-agent research workflow
+- [`StatisticalAssistantAgent`](Langflow/Agents/StatisticalAssistantAgent/README.md): Python-backed analysis of uploaded datasets
+- [`PersonalAssistantAgent`](Langflow/Agents/PersonalAssistantAgent/README.md): operational assistant spanning productivity tools and a partial RAG branch
+- [`HPCOperatorAgent`](Langflow/Agents/HPCOperatorAgent/README.md): Chimera-focused Slurm and archive operations through MCP tools
+- [`VariantInterpretationResearchAgent`](Langflow/Agents/VariantInterpretationResearchAgent/README.md): ClinVar-first variant evidence workflow for biomedical research questions
 
 ## How to use the materials
 
 1. Open one of the slide decks in [`Presentations/`](Presentations/) if you want the teaching narrative first.
-2. Browse [`Agents/README.md`](Agents/README.md) to choose a demonstration flow.
-3. Import a `.json` export from [`Agents/`](Agents/) into Langflow.
-4. Read the specific agent README for setup details such as API keys, custom components, or MCP servers.
-5. Run the flow in Langflow Playground and adapt it for your own teaching or experimentation.
+2. Follow [`Langflow/README.md`](Langflow/README.md) to open Langflow through JupyterHub or install it locally if needed.
+3. Browse [`Langflow/Agents/README.md`](Langflow/Agents/README.md) to choose a demonstration flow.
+4. Drag and drop a `.json` export from [`Langflow/Agents/`](Langflow/Agents/) into Langflow to import it.
+5. For the terminal-based coding-agent session, follow [`OpenCode/README.md`](OpenCode/README.md).
+6. Read the specific agent README for setup details such as API keys, custom components, or MCP servers.
+7. Run the flow in Langflow Playground and adapt it for your own teaching or experimentation.
 
 ## Why Langflow
 
